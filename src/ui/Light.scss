@@ -1,0 +1,10 @@
+.lights {
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid black;
+    margin: 0.5rem;
+    background-color: black;
+    &.yellow{
+        background-color: yellow;
+    }
+}

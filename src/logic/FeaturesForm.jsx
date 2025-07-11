@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Features from './Features';
 import PropTypes from 'prop-types';
 
-const FeaturesForm = ({ updateFeatures, currentItems }) => {
+const FeaturesForm = ({ updateFeatures }) => {
     const [isFormValid, setIsFormValid] = useState(true);
 
     const titleInputRef = useRef();
@@ -10,11 +10,11 @@ const FeaturesForm = ({ updateFeatures, currentItems }) => {
     const stateInputRef = useRef();
     const descriptionInputRef = useRef();
 
-    const checkValid= () => {
-        if (titleInputRef.current.value==='' ||
-            actionInputRef.current.value==='' ||
-            stateInputRef.current.value==='' ||
-            descriptionInputRef.current.value==='') {
+    const checkValid = () => {
+        if (titleInputRef.current.value === '' ||
+            actionInputRef.current.value === '' ||
+            stateInputRef.current.value === '' ||
+            descriptionInputRef.current.value === '') {
             setIsFormValid(false);
         } else {
             setIsFormValid(true);
@@ -44,7 +44,7 @@ const FeaturesForm = ({ updateFeatures, currentItems }) => {
             name: titleValue,
             action: actionValue,
             state: stateValue,
-            id: currentItems
+            id: Math.random() * 100
         }
         updateFeatures(newFeature)
         resetFields();
@@ -82,8 +82,8 @@ const FeaturesForm = ({ updateFeatures, currentItems }) => {
 }
 
 FeaturesForm.propTypes = {
-    updateFeatures: PropTypes.func.isRequired,
-    currentItems: PropTypes.number.isRequired
+    updateFeatures: PropTypes.func,
+    currentItems: PropTypes.number
 }
 
 export default FeaturesForm; 

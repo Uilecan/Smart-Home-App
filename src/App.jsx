@@ -3,6 +3,7 @@ import Features from './logic/Features';
 import Light from './ui/Light'
 import Room from './ui/Room';
 import AC from './ui/AC';
+import FeaturesForm from './logic/FeaturesForm';
 import { use, useEffect, useState, useRef } from 'react';
 
 function App() {
@@ -15,24 +16,13 @@ function App() {
     cleaned: 0
   });
 
-  //do not use  object state for multiple actions
-  // const [actions,setActions] = useState({
-  //   lightsState: false,
-  //   acState: false,
-  //   disrtStatus: 0,
-  //   cleaned: 0
-  // });
+  const [feature, setFeature] = useState({
+    name: '',
+    action: '',
+    state: false,
+    id: 0
+  })
 
-  console.log('triggered component level' + lightState);
-  //Use effect is used to run side effects in functional components
-  // useEffect(() => {
-  //   console.log('triggered in useEffect');
-
-  //   return () => {
-  //     console.log('component unmounted');
-  //   }
-  // }, [lightState]);
-  
   let dirtInterval = useRef();
   useEffect(() => {
     dirtInterval.current = setInterval(() => {
@@ -83,6 +73,11 @@ function App() {
         break;
     }
   }
+
+  const updateFeatures = (newFeature) => {
+    setFeature(newFeature)
+  }
+
   return (
     <div>
       <div className='ui-features'>
@@ -90,7 +85,8 @@ function App() {
         <Room status={dirtProgress.status}></Room>
         <AC acOn={acState}></AC>
       </div>
-      <Features toggleAction={toggleActionHandler}></Features>
+      <Features toggleAction={toggleActionHandler} newFeature={feature}></Features>
+      <FeaturesForm updateFeatures={updateFeatures}></FeaturesForm>
     </div>
   )
 }

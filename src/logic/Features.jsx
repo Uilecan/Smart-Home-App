@@ -1,9 +1,8 @@
 import Feature from "./Feature";
-import FeaturesForm from "./FeaturesForm";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
-const Features = ({ toggleAction }) => {
+const Features = ({ toggleAction, newFeature }) => {
     const FEATURES = [
         {
             name: 'Toggle Lights',
@@ -32,17 +31,24 @@ const Features = ({ toggleAction }) => {
 
     ]
 
+
+
     const [features, setFeatures] = useState(FEATURES);
+
+    useEffect(() => {
+        console.log(newFeature);
+        if (newFeature && newFeature.name !== '') {
+            setFeatures(prevState => {
+                return [newFeature, ...prevState]
+            })
+        }
+    }, [newFeature])
 
     const toggleTheAction = (value) => {
         toggleAction(value);
     }
 
-    const updateFeatures = (newFeature) => {
-        setFeatures((prevFeatures) => {
-            return [...prevFeatures, newFeature];
-        });
-    }
+
 
 
 
@@ -58,13 +64,14 @@ const Features = ({ toggleAction }) => {
                     ))
                 }
             </div>
-            <FeaturesForm updateFeatures={updateFeatures} currentItems={features.length}></FeaturesForm>
+
         </div>
     )
 }
 
-Features.PropTypes = {
-    toggleAction: PropTypes.func.isRequired
+Features.propTypes = {
+    toggleAction: PropTypes.func.isRequired,
+    newFeature: PropTypes.object
 }
 
 

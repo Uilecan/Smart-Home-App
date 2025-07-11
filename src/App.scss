@@ -9,6 +9,8 @@
 
 .ui-features {
   @include flexbox();
+  gap: 2ren;
+  flex-wrap: wrap;
 }
 
 .container {

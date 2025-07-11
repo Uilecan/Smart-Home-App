@@ -1,0 +1,10 @@
+.ac {
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid black;
+    margin: 0.5rem;
+    background-color: black;
+    &.blue{
+        background-color: blue;
+    }
+}

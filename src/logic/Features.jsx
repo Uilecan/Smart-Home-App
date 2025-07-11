@@ -1,6 +1,7 @@
 import Feature from "./Feature";
 import FeaturesForm from "./FeaturesForm";
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 const Features = ({ toggleAction }) => {
     const FEATURES = [
@@ -42,6 +43,9 @@ const Features = ({ toggleAction }) => {
             return [...prevFeatures, newFeature];
         });
     }
+
+
+
     return (
         <div className="container">
             <div className="features">
@@ -57,6 +61,10 @@ const Features = ({ toggleAction }) => {
             <FeaturesForm updateFeatures={updateFeatures} currentItems={features.length}></FeaturesForm>
         </div>
     )
+}
+
+Features.PropTypes = {
+    toggleAction: PropTypes.func.isRequired
 }
 
 

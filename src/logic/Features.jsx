@@ -44,8 +44,55 @@ const Features = ({ toggleAction, newFeature }) => {
         }
     }, [newFeature])
 
+
+    const toggleLights = () => {
+        setFeatures(prevState => {
+            const updatedFeatures = prevState.map(feature => {
+                if (feature.name === 'Toggle Lights') {
+                    return {
+                        ...feature,
+                        state: !feature.state,
+                        action: `Turn the lights ${!feature.state ? 'off' : 'on'}`
+                    }
+
+                }
+                return feature;
+            })
+            return updatedFeatures;
+        })
+    }
+
+    const toggleAC = () => {
+        setFeatures(prevState => {
+            const updatedFeatures = prevState.map(feature => {
+                if (feature.name === 'Toggle AC') {
+                    return {
+                        ...feature,
+                        state: !feature.state,
+                        action: `Turn the AC ${!feature.state ? 'off' : 'on'}`
+                    }
+                }
+                return feature;
+            })
+            return updatedFeatures;
+        })
+
+    }
+
     const toggleTheAction = (value) => {
         toggleAction(value);
+
+        switch (value) {
+            case 'Toggle Lights':
+                toggleLights();
+                break;
+            case 'Toggle AC':
+                toggleAC();
+                break;
+            case 'Clean':
+                startCleaning();
+                break;
+        }
     }
 
 
@@ -60,6 +107,7 @@ const Features = ({ toggleAction, newFeature }) => {
                         <Feature key={feature.id}
                             name={feature.name}
                             action={feature.action}
+                            state={feature.state}
                             toggleAction={toggleTheAction} />
                     ))
                 }

@@ -7,6 +7,20 @@
   text-align: center;
 }
 
+header {
+  nav {
+    ul {
+      list-style: none;
+      @include flexbox();
+      gap: 1.5rem;
+
+      li {
+        @include flexbox();
+      }
+    }
+  }
+}
+
 .ui-features {
   @include flexbox();
   gap: 2ren;

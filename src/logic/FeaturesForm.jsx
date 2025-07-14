@@ -11,6 +11,7 @@ const FeaturesForm = ({ updateFeatures }) => {
     const [descriptionField, setDescriptionField] = useState('');
 
 
+
     const checkValid = () => {
         if (nameField === '' ||
             actionField === '' ||
@@ -44,6 +45,8 @@ const FeaturesForm = ({ updateFeatures }) => {
         event.preventDefault(); //Nu se face refresh la submit
         checkValid();
 
+        if (!isFormValid) return;
+
 
         const newFeature = {
             name: nameField,
@@ -61,23 +64,36 @@ const FeaturesForm = ({ updateFeatures }) => {
             noValidate>
             <div className="control">
                 <label htmlFor="title">Feature title</label>
-                <input type="text" id="title" required onChange={nameChangeHandler} />
+                <input type="text"
+                    id="title"
+                    required
+                    onChange={nameChangeHandler}
+                    value={nameField} />
             </div>
 
             <div className="control">
                 <label htmlFor="action">Feature action</label>
-                <input type="text" id="action" required onChange={actionChangeHandler} />
+                <input type="text"
+                    id="action"
+                    required
+                    onChange={actionChangeHandler}
+                    value={actionField} />
             </div>
 
             <div className="control">
                 <label htmlFor="state">Feature state</label>
-                <input type="text" id="state" required
-                    onChange={() => setStateField(e.target.value)} />
+                <input type="text"
+                    id="state"
+                    required
+                    onChange={(e) => setStateField(e.target.value)}
+                    value={stateField} />
             </div>
 
             <div className="control">
                 <label htmlFor="description">Feature description</label>
-                <textarea id="description" rows={5} required
+                <textarea id="description" rows={5}
+                    required
+                    value={descriptionField}
                     onChange={(e) => setDescriptionField(e.target.value)}></textarea>
             </div>
 

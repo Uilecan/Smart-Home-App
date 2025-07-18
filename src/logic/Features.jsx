@@ -39,7 +39,7 @@ const Features = ({ toggleAction, newFeature }) => {
         console.log(newFeature);
         if (newFeature && newFeature.name !== '') {
             setFeatures(prevState => {
-                return [newFeature, ...prevState]
+                return [...prevState, newFeature]
             })
         }
     }, [newFeature])

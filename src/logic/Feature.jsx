@@ -1,8 +1,20 @@
-import './Feature.scss';
+//React
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
+//App
+import './Feature.scss';
 import buttonIcon from './assets/images/lights-icon.png';
 import buttonIconOff from './assets/images/lightsOff-icon.png';
-import { useEffect, useState } from 'react';
+import smartHomeIcon from './assets/images/smart-home.jpg';
+
+//Material UI
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
 
 export const Feature = ({ name, action, toggleAction, state }) => {
 
@@ -13,13 +25,33 @@ export const Feature = ({ name, action, toggleAction, state }) => {
         toggleAction(name);
     }
     useEffect(() => {
-        state ? setIcon(buttonIcon) : setIcon(buttonIconOff);
+        if (name === 'Toggle Lights') {
+            state ? setIcon(buttonIcon) : setIcon(buttonIconOff);
+        }
+        else {
+            setIcon(smartHomeIcon);
+        }
     }, [state]);
+
     return (
         <div className="feature">
-            <img src={icon} alt="" className='button-img' />
-            <h3>{name}</h3>
-            <button onClick={featureButtonHandler}>{action}</button>
+            <Card sx={{ maxWidth: 345 }} onClick={featureButtonHandler}>
+                <CardMedia
+                    sx={{ height: 140 }}
+                    image={icon}
+                    title="green iguana"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {name}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        Description to be added here
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                </CardActions>
+            </Card>
         </div>
     )
 }

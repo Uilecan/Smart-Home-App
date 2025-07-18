@@ -16,6 +16,7 @@ header {
 
       li {
         @include flexbox();
+        gap: 0.5rem;
       }
     }
   }

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import Features from './Features';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+//Material UI
+import TextField from '@mui/material/TextField';
 
 const FeaturesForm = ({ updateFeatures }) => {
     const [isFormValid, setIsFormValid] = useState(true);
@@ -9,6 +12,9 @@ const FeaturesForm = ({ updateFeatures }) => {
     const [actionField, setActionField] = useState('');
     const [stateField, setStateField] = useState('');
     const [descriptionField, setDescriptionField] = useState('');
+    const [nameFieldError, setNameFieldError] = useState(false);
+
+    const navigate = useNavigate();
 
 
 
@@ -20,6 +26,10 @@ const FeaturesForm = ({ updateFeatures }) => {
             setIsFormValid(false);
         } else {
             setIsFormValid(true);
+        }
+
+        if (nameField === '') {
+            setNameFieldError(true);
         }
     }
 
@@ -43,11 +53,10 @@ const FeaturesForm = ({ updateFeatures }) => {
 
     const submitHandler = (event) => {
         event.preventDefault(); //Nu se face refresh la submit
-        checkValid();
-
-        if (!isFormValid) return;
-
-
+        checkValid(); // Verificam daca formularul este valid
+        if (isFormValid) {
+            return; // Nu trimitem formularul daca nu este valid
+        }
         const newFeature = {
             name: nameField,
             action: actionField,
@@ -56,6 +65,7 @@ const FeaturesForm = ({ updateFeatures }) => {
         }
         updateFeatures(newFeature)
         resetFields();
+        navigate('/smart-home'); // Navigam catre SmartHome dupa adaugarea feature-ului
     }
 
     return (
@@ -63,12 +73,16 @@ const FeaturesForm = ({ updateFeatures }) => {
             onSubmit={submitHandler}
             noValidate>
             <div className="control">
-                <label htmlFor="title">Feature title</label>
-                <input type="text"
-                    id="title"
+                <TextField
+                    error={nameFieldError}
+                    id="name-field-error-text"
+                    label="Feature Title"
+                    value={nameField}
                     required
                     onChange={nameChangeHandler}
-                    value={nameField} />
+                    helperText="Incorrect name"
+                    variant="standard"
+                />
             </div>
 
             <div className="control">
